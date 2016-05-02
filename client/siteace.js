@@ -49,12 +49,25 @@ Template.website_form.events({
     "submit .js-save-website-form":function(event){
 
         // here is an example of how to get the url out of the form:
-        var url = event.target.url.value;
-        console.log("The url they entered is: "+url);
+        // var url = event.target.url.value;
+        // console.log("The url they entered is: "+url);
+        console.log(event.target);
 
         //  put your website saving code in here!
+        var url = event.target.url.value;
+        var title = event.target.title.value;
+        var description = event.target.description.value;
 
+        if (Meteor.user()) {
+            Websites.insert({
+                url: url,
+                title: title,
+                description: description,
+                createdOn: new Date()
+            });
+        }
+
+        $("#website_form").delay(1000).toggle('slow');
         return false;// stop the form submit from reloading the page
-
     }
 });
