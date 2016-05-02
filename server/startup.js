@@ -4,15 +4,15 @@ Meteor.startup(function () {
     if (!Websites.findOne()){
         console.log("No websites yet. Creating starter data.");
           Websites.insert({
-            title:"Goldsmiths Computing Department",
-            url:"http://www.gold.ac.uk/computing/",
-            description:"This is where this course was developed.",
+            title:"Github",
+            url:"https://github.com",
+            description:"This is how people build software.",
             createdOn:new Date()
         });
          Websites.insert({
-            title:"University of London",
-            url:"http://www.londoninternational.ac.uk/courses/undergraduate/goldsmiths/bsc-creative-computing-bsc-diploma-work-entry-route",
-            description:"University of London International Programme.",
+            title:"Meteor",
+            url:"https://www.meteor.com",
+            description:"Build Apps with Javascript.",
             createdOn:new Date()
         });
          Websites.insert({
