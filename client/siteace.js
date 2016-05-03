@@ -43,17 +43,10 @@ Template.website_item.events({
 })
 
 Template.website_form.events({
-    "click .js-toggle-website-form":function(event){
+    "click .js-toggle-website-form": function(event){
         $("#website_form").toggle('slow');
     },
-    "submit .js-save-website-form":function(event){
-
-        // here is an example of how to get the url out of the form:
-        // var url = event.target.url.value;
-        // console.log("The url they entered is: "+url);
-        console.log(event.target);
-
-        //  put your website saving code in here!
+    "submit .js-save-website-form": function(event){
         var url = event.target.url.value;
         var title = event.target.title.value;
         var description = event.target.description.value;
@@ -63,8 +56,11 @@ Template.website_form.events({
                 url: url,
                 title: title,
                 description: description,
-                createdOn: new Date()
+                createdOn: new Date(),
+                upvotes: 0,
+                downvotes: 0
             });
+            console.log("Added site with url" + url);
         }
 
         $("#website_form").delay(1000).toggle('slow');
