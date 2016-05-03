@@ -20,24 +20,16 @@ Template.website_list.helpers({
 /////
 
 Template.website_item.events({
-    "click .js-upvote":function(event){
-        // example of how you can access the id for the website in the database
-        // (this is the data context for the template)
+    "click .js-upvote": function(event) {
         var website_id = this._id;
-        console.log("Up voting website with id "+website_id);
-        // put the code in here to add a vote to a website!
-
+        Websites.update({_id: website_id}, {$inc: {upvotes: 1}});
+        console.log("Up voting website with id "+ website_id);
         return false;// prevent the button from reloading the page
     },
-    "click .js-downvote":function(event){
-
-        // example of how you can access the id for the website in the database
-        // (this is the data context for the template)
+    "click .js-downvote": function(event) {
         var website_id = this._id;
-        console.log("Down voting website with id "+website_id);
-
-        // put the code in here to remove a vote from a website!
-
+        Websites.update({_id: website_id}, {$inc: {downvotes: 1}});
+        console.log("Down voting website with id "+ website_id);
         return false;// prevent the button from reloading the page
     }
 })
