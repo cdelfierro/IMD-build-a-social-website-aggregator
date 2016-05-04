@@ -30,13 +30,13 @@ Template.website_item.events({
     "click .js-upvote": function(event) {
         var website_id = this._id;
         Websites.update({_id: website_id}, {$inc: {upvotes: 1}});
-        console.log("Up voting website with id "+ website_id);
+        console.log("Up voting the "+ this.title + " website.");
         return false;// prevent the button from reloading the page
     },
     "click .js-downvote": function(event) {
         var website_id = this._id;
         Websites.update({_id: website_id}, {$inc: {downvotes: 1}});
-        console.log("Down voting website with id "+ website_id);
+        console.log("Down voting the "+ this.title + " website.");
         return false;// prevent the button from reloading the page
     }
 })
