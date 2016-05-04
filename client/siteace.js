@@ -14,6 +14,13 @@ Template.website_list.helpers({
     }
 });
 
+Template.website_item.helpers({
+    format_date: function() {
+        var website_id = this._id;
+        date = Websites.findOne({_id: website_id}, {fields: {createdOn: 1}});
+        return date.createdOn.toLocaleDateString() + " @ " + date.createdOn.toLocaleTimeString();
+    }
+})
 
 /////
 // template events
