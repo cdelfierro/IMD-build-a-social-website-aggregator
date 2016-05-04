@@ -9,6 +9,15 @@ Router.route("/", function() {
     });
 });
 
+Router.route("/:_id", function() {
+    this.render("website", {
+        to: "content",
+        data: function() {
+            return Websites.findOne({_id: this.params._id});
+        }
+    });
+});
+
 // Accounts config
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_AND_EMAIL"
@@ -31,13 +40,12 @@ Template.website_item.helpers({
         date = Websites.findOne({_id: website_id}, {fields: {createdOn: 1}});
         return date.createdOn.toLocaleDateString() + " @ " + date.createdOn.toLocaleTimeString();
     }
-})
+});
 
 /////
 // template events
 /////
-
-Template.website_item.events({
+var website_events = {
     "click .js-upvote": function(event) {
         var website_id = this._id;
         Websites.update({_id: website_id}, {$inc: {upvotes: 1}});
@@ -50,7 +58,10 @@ Template.website_item.events({
         console.log("Down voting the "+ this.title + " website.");
         return false;// prevent the button from reloading the page
     }
-})
+};
+
+Template.website_item.events(website_events);
+Template.website.events(website_events);
 
 Template.website_form.events({
     "click .js-toggle-website-form": function(event){

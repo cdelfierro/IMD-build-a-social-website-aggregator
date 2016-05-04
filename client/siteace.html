@@ -28,6 +28,22 @@
   {{> website_list}}
 </template>
 
+<template name="website">
+  <h1 class="website-title">
+    {{title}}
+  </h1>
+  <button class="btn btn-xs btn-success website-title-label js-upvote">
+    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+    {{upvotes}}
+  </button>
+  <button class="btn btn-xs btn-danger website-title-label js-downvote">
+    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+    {{downvotes}}
+  </button>
+  <p>{{description}}</p>
+  <p>URL: <a href="{{url}}">{{url}}</a></p>
+</template>
+
 <template name="website_form">
   <a class="btn btn-default js-toggle-website-form" href="#">
       <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -64,15 +80,15 @@
 <!-- template that displays individual website entries -->
 <template name="website_item">
 <li>
-  <a href="{{url}}">{{title}}</a>
+  <a href="{{_id}}">{{title}}</a> <!-- falta un href="{{url}}" -->
   <p>
     Added on {{format_date}}.
   </p>
-  <button type="button" class="btn btn-xs btn-default btn-success js-upvote">
+  <button type="button" class="btn btn-xs btn-success js-upvote">
     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
     <span class="badge">{{upvotes}}</span>
   </button>
-  <button type="button" class="btn btn-xs btn-default btn-danger js-downvote">
+  <button type="button" class="btn btn-xs btn-danger js-downvote">
     <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
     <span class="badge">{{downvotes}}</span>
   </button>
