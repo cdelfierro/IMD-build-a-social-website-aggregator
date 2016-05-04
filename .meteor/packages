@@ -22,3 +22,4 @@ twbs:bootstrap
 accounts-password
 accounts-github
 ian:accounts-ui-bootstrap-3
+iron:router
