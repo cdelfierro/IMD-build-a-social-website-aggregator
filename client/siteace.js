@@ -1,3 +1,14 @@
+// Routing
+Router.configure({
+    layoutTemplate: "site_ace"
+});
+
+Router.route("/", function() {
+    this.render("home", {
+        to: "content"
+    });
+});
+
 // Accounts config
 Accounts.ui.config({
     passwordSignupFields: "USERNAME_AND_EMAIL"

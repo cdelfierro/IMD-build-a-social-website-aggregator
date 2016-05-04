@@ -2,27 +2,31 @@
   <title>Site Ace</title>
 </head>
 
-<body>
-  <!-- navbar  - you will be putting the login functions here -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">
-          Site Ace
-        </a>
+<template name="site_ace">
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">
+            Site Ace
+          </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          {{> loginButtons}}
+        </ul>
       </div>
-      <ul class="nav navbar-nav navbar-right">
-        {{> loginButtons}}
-      </ul>
+    </nav>
+
+    <div class="container">
+      {{> yield "content"}}
     </div>
-  </nav>
+  </body>
+</template>
 
-  <div class="container">
-    {{> website_form}}
-    {{> website_list}}
-  </div>
-</body>
-
+<template name="home">
+  {{> website_form}}
+  {{> website_list}}
+</template>
 
 <template name="website_form">
   <a class="btn btn-default js-toggle-website-form" href="#">
@@ -62,7 +66,7 @@
 <li>
   <a href="{{url}}">{{title}}</a>
   <p>
-    Created on {{format_date}}.
+    Added on {{format_date}}.
   </p>
   <button type="button" class="btn btn-xs btn-default btn-success js-upvote">
     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
