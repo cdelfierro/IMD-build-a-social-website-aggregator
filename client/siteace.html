@@ -52,7 +52,7 @@
 <template name="website_list">
   <ol>
   {{#each websites}}
-  {{>website_item}}
+  {{> website_item}}
   {{/each}}
   </ol>
 </template>
@@ -62,14 +62,15 @@
 <li>
   <a href="{{url}}">{{title}}</a>
   <p>
-    {{description}}
+    Created on {{format_date}}.
   </p>
-  <a href="#" class="btn btn-default js-upvote">
-    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
-  </a>
-  <a href="#" class="btn btn-default js-downvote">
-    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
-  </a>
-  <!-- you will be putting your up and down vote buttons in here! -->
+  <button type="button" class="btn btn-xs btn-default btn-success js-upvote">
+    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+    <span class="badge">{{upvotes}}</span>
+  </button>
+  <button type="button" class="btn btn-xs btn-default btn-danger js-downvote">
+    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+    <span class="badge">{{downvotes}}</span>
+  </button>
 </li>
 </template>
