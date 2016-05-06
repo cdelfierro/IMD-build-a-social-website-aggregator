@@ -71,11 +71,19 @@
   </p>
   <button type="button" class="btn btn-xs btn-success js-upvote">
     <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-    <span class="badge">{{upvotes}}</span>
+    {{#if upvotes}}
+      <span class="badge">{{upvotes}}</span>
+    {{else}}
+      <span class="badge">0</span>
+    {{/if}}
   </button>
   <button type="button" class="btn btn-xs btn-danger js-downvote">
     <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-    <span class="badge">{{downvotes}}</span>
+    {{#if downvotes}}
+      <span class="badge">{{downvotes}}</span>
+    {{else}}
+      <span class="badge">0</span>
+    {{/if}}
   </button>
 </li>
 </template>
@@ -95,30 +103,36 @@
   </button>
   <p>{{description}}</p>
   <p>URL: <a href="{{url}}">{{url}}</a></p>
-  {{> website_comment_form}}
-  {{> website_comment_list}}
+  {{> website_comments}}
 </template>
 
-<template name="website_comment_form">
+<template name="website_comments">
   <div id="comment_form">
     <form class="js-save-comment-form">
       <div class="form-group">
-        <label for="comment">Comments</label>
-        <textarea class="form-control" id="comment" placeholder="Put here your comment"></textarea>
+        <label for="comment">Comment</label>
+        <textarea class="form-control" id="comment" placeholder="{{placeholder}}"></textarea>
       </div>
       <button type="submit" class="btn btn-default">Submit</button>
     </form>
   </div>
-</template>
 
-<template name="website_comment_list">
-  {{#each comments}}
-  {{> website_comment_item}}
-  {{/each}}
+  {{#if comments}}
+    <h3>Older comments</h3>
+    {{#each comments}}
+    {{> website_comment_item}}
+    {{/each}}
+  {{else}}
+  {{/if}}
 </template>
 
 <template name="website_comment_item">
-  <p>
-    {{content}}
-  </p>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">{{comment_author}} says:</h4>
+    </div>
+    <div class="panel-body">
+      {{content}}
+    </div>
+  </div>
 </template>

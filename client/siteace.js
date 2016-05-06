@@ -42,9 +42,30 @@ Template.website_item.helpers({
     }
 });
 
-Template.website_comment_list.helpers({
+Template.website_comments.helpers({
     comments: function() {
-        return this.comments.reverse();
+        var comments = this.comments;
+        if (comments) {
+            return comments.reverse();
+        } else {
+            return null;
+        }
+    },
+
+    placeholder: function() {
+        var comments = this.comments;
+        if (comments) {
+            return "Put here your comments";
+        } else {
+            return "Be the first one to comment!"
+        }
+    }
+});
+
+Template.website_comment_item.helpers({
+    comment_author: function() {
+        var user = Meteor.users.findOne({_id: this.author});
+        return user.username;
     }
 });
 
@@ -96,7 +117,7 @@ Template.website_form.events({
     }
 });
 
-Template.website_comment_form.events({
+Template.website_comments.events({
     "submit .js-save-comment-form": function(event) {
         var website_id = this._id;
         var comment = event.target.comment.value;
