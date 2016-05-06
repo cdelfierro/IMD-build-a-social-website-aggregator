@@ -23,25 +23,10 @@
   </body>
 </template>
 
+<!-- Home page -->
 <template name="home">
   {{> website_form}}
   {{> website_list}}
-</template>
-
-<template name="website">
-  <h1 class="website-title">
-    {{title}}
-  </h1>
-  <button class="btn btn-xs btn-success website-title-label js-upvote">
-    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
-    {{upvotes}}
-  </button>
-  <button class="btn btn-xs btn-danger website-title-label js-downvote">
-    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-    {{downvotes}}
-  </button>
-  <p>{{description}}</p>
-  <p>URL: <a href="{{url}}">{{url}}</a></p>
 </template>
 
 <template name="website_form">
@@ -93,4 +78,47 @@
     <span class="badge">{{downvotes}}</span>
   </button>
 </li>
+</template>
+
+<!-- Single website page templates-->
+<template name="website">
+  <h1 class="website-title">
+    {{title}}
+  </h1>
+  <button class="btn btn-xs btn-success website-title-label js-upvote">
+    <span class="glyphicon glyphicon-menu-up" aria-hidden="true"></span>
+    {{upvotes}}
+  </button>
+  <button class="btn btn-xs btn-danger website-title-label js-downvote">
+    <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
+    {{downvotes}}
+  </button>
+  <p>{{description}}</p>
+  <p>URL: <a href="{{url}}">{{url}}</a></p>
+  {{> website_comment_form}}
+  {{> website_comment_list}}
+</template>
+
+<template name="website_comment_form">
+  <div id="comment_form">
+    <form class="js-save-comment-form">
+      <div class="form-group">
+        <label for="comment">Comments</label>
+        <textarea class="form-control" id="comment" placeholder="Put here your comment"></textarea>
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+  </div>
+</template>
+
+<template name="website_comment_list">
+  {{#each comments}}
+  {{> website_comment_item}}
+  {{/each}}
+</template>
+
+<template name="website_comment_item">
+  <p>
+    {{content}}
+  </p>
 </template>

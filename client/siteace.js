@@ -42,6 +42,12 @@ Template.website_item.helpers({
     }
 });
 
+Template.website_comment_list.helpers({
+    comments: function() {
+        return this.comments.reverse();
+    }
+});
+
 /////
 // template events
 /////
@@ -79,12 +85,40 @@ Template.website_form.events({
                 description: description,
                 createdOn: new Date(),
                 upvotes: 0,
-                downvotes: 0
+                downvotes: 0,
+                comments: []
             });
             console.log("Added site with url" + url);
         }
 
         $("#website_form").delay(1000).toggle('slow');
         return false;// stop the form submit from reloading the page
+    }
+});
+
+Template.website_comment_form.events({
+    "submit .js-save-comment-form": function(event) {
+        var website_id = this._id;
+        var comment = event.target.comment.value;
+
+        if (Meteor.user()) {
+            Websites.update(
+                {_id: website_id}, {
+                    $push: {
+                        comments: {
+                            author: Meteor.user()._id,
+                            content: comment,
+                            date: new Date()
+                        }
+                    }
+                }
+            );
+            console.log("Added comment to site " + this.title);
+            $("#comment").val("");
+        } else {
+            console.log("Can not comment as anonymous user");
+        }
+
+        return false;
     }
 });
