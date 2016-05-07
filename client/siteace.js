@@ -43,13 +43,16 @@ Template.website_item.helpers({
 });
 
 Template.website_comments.helpers({
-    comments: function() {
-        var comments = this.comments;
-        if (comments) {
-            return comments.reverse();
+    comments_exist: function() {
+        if (this.comments) {
+            return true;
         } else {
-            return null;
+            return false;
         }
+    },
+
+    comments: function() {
+        return this.comments.reverse();
     },
 
     placeholder: function() {
@@ -96,21 +99,33 @@ Template.website_form.events({
     },
     "submit .js-save-website-form": function(event){
         var url = event.target.url.value;
-        var title = event.target.title.value;
-        var description = event.target.description.value;
 
-        if (Meteor.user()) {
-            Websites.insert({
-                url: url,
-                title: title,
-                description: description,
-                createdOn: new Date(),
-                upvotes: 0,
-                downvotes: 0,
-                comments: []
-            });
-            console.log("Added site with url" + url);
-        }
+        Meteor.call("check_webpage", url, function(error, response) {
+            if (error) {
+                console.log(error);
+            } else {
+                page = "<div>" + response.content + "</div>";
+                var title = $("title", page).text();
+                var description = $("meta[name='description']", page).attr("content");
+                console.log(title);
+                console.log(description);
+
+                if (Meteor.user()) {
+                    Websites.insert({
+                        url: url,
+                        title: title,
+                        description: description,
+                        createdOn: new Date(),
+                        upvotes: 0,
+                        downvotes: 0,
+                        comments: []
+                    });
+                    console.log("Added site with url " + url);
+                } else {
+                    alert("You must login to add a site!");
+                }
+            }
+        });
 
         $("#website_form").delay(1000).toggle('slow');
         return false;// stop the form submit from reloading the page
@@ -137,7 +152,7 @@ Template.website_comments.events({
             console.log("Added comment to site " + this.title);
             $("#comment").val("");
         } else {
-            console.log("Can not comment as anonymous user");
+            alert("Can not comment as anonymous user");
         }
 
         return false;
